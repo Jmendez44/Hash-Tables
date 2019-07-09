@@ -25,7 +25,10 @@ class BasicHashTable:
 # Research and implement the djb2 hash function
 # '''
 def hash(string, max):
-    pass
+    h = 5381
+        for x in string:
+            h = (( h << 5) + h) + ord(x)
+        return h % max
 
 
 # '''
@@ -34,7 +37,9 @@ def hash(string, max):
 # If you are overwriting a value with a different key, print a warning.
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    if value > hash_table.count:
+        print("Error out of bounds in array_insert")
+        return None
 
 
 # '''
