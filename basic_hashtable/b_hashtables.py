@@ -16,8 +16,8 @@ class Pair:
 class BasicHashTable:
     def __init__(self, capacity):
         self.capacity = capacity
-        self.count = 0
-        self.elements = [None] * capacity
+        # self.count = 0
+        self.storage = [None] * capacity
 
 
 # '''
@@ -26,9 +26,9 @@ class BasicHashTable:
 # '''
 def hash(string, max):
     h = 5381
-        for x in string:
-            h = (( h << 5) + h) + ord(x)
-        return h % max
+    for x in string:
+        h = (( h << 5) + h) + ord(x)
+    return h % max
 
 
 # '''
@@ -37,9 +37,14 @@ def hash(string, max):
 # If you are overwriting a value with a different key, print a warning.
 # '''
 def hash_table_insert(hash_table, key, value):
-    if value > hash_table.count:
-        print("Error out of bounds in array_insert")
-        return None
+    index = hash(key, hash_table.capacity)
+    pair = Pair(key, value)
+    stored_pair = hash_table.storage(index)
+    if hash_table.storage[index] is not None:
+        if pair.key != stored_pair.key:
+            print("Warning, index at " + str(index) + " is not empty.")
+    hash_table.storage[index] = pair
+    
 
 
 # '''
@@ -57,7 +62,13 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    index = hash(key, hash_table.capacity)
+    if hash_table.storage[index] is not None:
+        if hash_table.storage[index].key == key:
+            return hash_table.storage[index].value
+
+    print("unable to find value with key " + key)
+    return None
 
 
 def Testing():
