@@ -39,7 +39,7 @@ def hash(string, max):
 def hash_table_insert(hash_table, key, value):
     index = hash(key, hash_table.capacity)
     pair = Pair(key, value)
-    stored_pair = hash_table.storage(index)
+    stored_pair = hash_table.storage[index]
     if hash_table.storage[index] is not None:
         if pair.key != stored_pair.key:
             print("Warning, index at " + str(index) + " is not empty.")
